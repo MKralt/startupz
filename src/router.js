@@ -6,5 +6,14 @@ Vue.use(Router)
 export default new Router({
 	mode: 'history',
 	base: process.env.BASE_URL,
-	routes: []
+	routes: [
+		{
+			path: '/:company/:channel/dashboard',
+			component: () => import('./views/Dashboard.vue')
+		},
+		{
+			path: '/:company/:channel/customize',
+			component: () => import('./views/Customize.vue')
+		}
+	]
 })
