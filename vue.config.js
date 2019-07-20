@@ -15,7 +15,7 @@ module.exports = {
       message: 'Update Github Pages'
     }
   },
-	publicPath: process.env.nodeENV === 'production'
+	publicPath: process.env.NODE_ENV === 'production'
 		? '/startupz/'
 		: '/'
 }
