@@ -1,0 +1,112 @@
+schema {
+	query: Query
+}
+
+type Channel {
+	id: ID!
+	name: String
+	question: String
+	ratings: [Rating!]!
+	config: Config
+}
+
+input ChannelInput {
+	name: String!
+}
+
+type Rating {
+	id: ID!
+	timestamp: Int
+	score: Int!
+	comment: String!
+	user: User
+}
+
+input RatingInput {
+	score: Int!
+	comment: String!
+	user: UserInput
+}
+
+type Config {
+	id: ID!
+	logo: String
+	accent_color: String!
+	button_color: String!
+	button_style: String!
+	button_shape: String!
+	email_name: String!
+	email_reply: String!
+	email_subject: String!
+	email_question: String!
+}
+
+input ConfigInput {
+	logo: String
+	accent_color: String!
+	button_color: String!
+	button_style: String!
+	button_shape: String!
+	email_name: String!
+	email_reply: String!
+	email_subject: String!
+	email_question: String!
+}
+
+type Company {
+	id: ID!
+	logo: String
+	name: String!
+	channels: [Channel!]!
+}
+
+input CompanyInput {
+	logo: String
+	name: String!
+}
+
+type User {
+	id: ID!
+	name: String!
+	email: String!
+}
+
+input UserInput {
+	name: String!
+	email: String!
+}
+
+type Query {
+	users: [User!]!
+	user(id: ID): User
+	companies: [Company!]!
+	company(id: ID!): Company
+	channels: [Channel!]!
+	channel(id: ID!): Channel
+	configs: [Config!]!
+	config(id: ID!): Config
+	ratings: [Rating!]!
+	rating(id: ID!): Rating
+}
+
+type Mutation {
+	createUser(input: UserInput): User
+	updateUser(id: ID!, input: UserInput): User
+	deleteUser(id: ID!): User
+
+	createCompany(input: CompanyInput): Company
+	updateCompany(id: ID!, input: CompanyInput): Company
+	deleteCompany(id: ID!): Company
+
+	createConfig(input: ConfigInput): Config
+	updateConfig(id: ID!, input: ConfigInput): Config
+	deleteConfig(id: ID!): Config
+
+	createRating(input: RatingInput): Rating
+	updateRating(id: ID!, input: RatingInput): Rating
+	deleteRating(id: ID!): Rating
+
+	createChannel(input: ChannelInput): Channel
+	updateChannel(id: ID!, input: ChannelInput): Channel
+	deleteChannel(id: ID!): Channel
+}
