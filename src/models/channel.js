@@ -9,10 +9,9 @@ export class Channel extends Model {
 			id: this.increment(),
 			company_id: this.number(null).nullable(),
 			name: this.string(''),
-			question_id: this.number(null).nullable(),
-			current_question: this.belongsTo(Question, 'question_id'),
+			question: this.string(''),
 			ratings: this.hasMany(Rating, 'channel_id'),
-			settings: this.hasOne(Settings, 'channel_id')
+			config: this.hasOne(Config, 'channel_id')
 		}
 	}
 
@@ -24,25 +23,12 @@ export class Channel extends Model {
 	}
 }
 
-export class Question extends Model {
-	static entity = 'questions'
-
-	static fields() {
-		return {
-			id: this.increment(),
-			body: this.string('')
-		}
-	}
-}
-
 export class Rating extends Model {
 	static entity = 'ratings'
 
 	static fields() {
 		return {
 			id: this.increment(),
-			question_id: this.number(null).nullable(),
-			question: this.belongsTo(Question, 'question_id'),
 			timestamp: this.number(null).nullable(),
 			score: this.number(0),
 			comment: this.string(''),
@@ -56,13 +42,13 @@ export class Rating extends Model {
 	}
 }
 
-export class Settings extends Model {
-	static entity = 'setings'
+export class Config extends Model {
+	static entity = 'configs'
 
 	static fields() {
 		return {
 			id: this.increment(),
-			channel_id: this.attr(null),
+			channel_id: this.number(null).nullable(),
 			logo: this.attr(null),
 			accent_color: this.string('#000000'),
 			button_color: this.string('#000000'),
