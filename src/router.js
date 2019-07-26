@@ -8,11 +8,11 @@ export default new Router({
 	routes: [
 		{
 			path: '/:company/:channel/dashboard',
-			component: () => import('./views/Dashboard.vue')
+			component: () => import('./views/dashboard/Dashboard.vue')
 		},
 		{
 			path: '/:company/:channel/customize',
-			component: () => import('./views/Customize.vue')
+			component: () => import('./views/customize/Customize.vue')
 		}
 	]
 })
