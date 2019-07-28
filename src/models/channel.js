@@ -3,6 +3,7 @@ import { User } from './user.js'
 
 export class Channel extends Model {
 	static entity = 'channels'
+	static eagerLoad= ['ratings']
 
 	static fields() {
 		return {
@@ -15,11 +16,26 @@ export class Channel extends Model {
 		}
 	}
 
+	get path() {
+		return this.name.split(' ').join().toLowerCase()
+	}
+
+	get responseCount() {
+		return this.ratings.length
+	}
+
 	get average_rating() {
 		const ratingCount = this.ratings.length
 		const ratingSum = this.ratings.reduce((total, { score }) => total += score, 0)
 
 		return Math.round(ratingSum / ratingCount)
+	}
+
+	get tag() {
+		if(this.responseCount > 10) {
+			return `${this.average_rating}-star`
+		}
+		return 'NPS'
 	}
 }
 
@@ -29,7 +45,8 @@ export class Rating extends Model {
 	static fields() {
 		return {
 			id: this.increment(),
-			timestamp: this.number(null).nullable(),
+			channel_id: this.number(null).nullable(),
+			timestamp: this.string(null).nullable(),
 			score: this.number(0),
 			comment: this.string(''),
 			user_id: this.number(null).nullable(),
