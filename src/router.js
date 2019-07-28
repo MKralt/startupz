@@ -7,12 +7,28 @@ export default new Router({
 	base: process.env.BASE_URL,
 	routes: [
 		{
-			path: '/:company/:channel/dashboard',
-			component: () => import('./views/dashboard/Dashboard.vue')
+			path: '/:company',
+			component: () => import('./views/company/Company.vue'),
+			props: (route) => ({
+				companyPath: route.params.company,
+				channelPath: route.params.channel || null
+			}),
+			children: [
+				{
+					path: ':channel/dashboard',
+					component: () => import('./views/company/dashboard/Dashboard.vue')
+				},
+				{
+					path: ':channel/customize',
+					component: () => import('./views/company/customize/Customize.vue')
+				},
+				{
+					path: ':channel/people'
+				},
+				{
+					path: ':channel/alerts'
+				}
+			]
 		},
-		{
-			path: '/:company/:channel/customize',
-			component: () => import('./views/customize/Customize.vue')
-		}
 	]
 })
