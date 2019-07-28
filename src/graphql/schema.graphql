@@ -16,7 +16,7 @@ input ChannelInput {
 
 type Rating {
 	id: ID!
-	timestamp: Int
+	timestamp: String
 	score: Int!
 	comment: String!
 	user: User

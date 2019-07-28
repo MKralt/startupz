@@ -8,8 +8,8 @@ export default {
 	}),
 
 	Company: () => ({
-		logo: faker.image.business(),
-		name: faker.company.companyName(),
+		logo: 'logo.png',
+		name: 'startupz',
 		channels: () => new MockList([1,7])
 	}),
 
@@ -21,7 +21,7 @@ export default {
 
 	Rating: () => ({
 		timestamp: faker.date.recent().valueOf(),
-		score: faker.random.number(1,5),
+		score: faker.random.number(5),
 		comment: faker.lorem.paragraph()
 	}),
 
@@ -31,7 +31,7 @@ export default {
 		accent_color: faker.internet.color(),
 		button_color: faker.internet.color(),
 		button_style: ['fill', 'outline'][faker.random.number(0,1)],
-		button_shape: ['square', 'rounded', 'circle'][faker.random.number(0,2)],
+		button_shape: ['square', 'rounded', 'capsule'][faker.random.number(0,2)],
 		email_name: faker.name.findName(),
 		email_reply: faker.internet.email(),
 		email_subject: faker.random.words(),
@@ -40,6 +40,7 @@ export default {
 
 	Query: () => ({
 		users: () => new MockList([8,120]),
-		companies: () => new MockList(3),
+		user: (user, { id }) => ({ ...user, id }),
+		companies: () => new MockList(1)
 	})
 }
